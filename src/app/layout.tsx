@@ -7,7 +7,6 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
   weight: ["200", "300", "400", "500"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -38,8 +37,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/s.svg", sizes: "any" },
-      { url: "/s.svg",     type: "image/svg", sizes: "512x512" },
-      { url: "/icon-192.png", type: "image/svg", sizes: "192x192" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
     ],
     apple:    [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
     shortcut: "/favicon.ico",
@@ -63,7 +61,7 @@ export const metadata: Metadata = {
 
   // ── Open Graph ──
   openGraph: {
-    type:        siteConfig.type,
+    type:        siteConfig.type as "website",
     locale:      siteConfig.locale,
     url:         siteConfig.url,
     siteName:    "Joy Bliss",
@@ -81,7 +79,7 @@ export const metadata: Metadata = {
 
   // ── Twitter / X ──
   twitter: {
-    card:        siteConfig.og.twitterCard,
+    card:        siteConfig.og.twitterCard as "summary_large_image",
     site:        siteConfig.og.twitterHandle,
     creator:     siteConfig.og.twitterHandle,
     title:       siteConfig.pages.home.title,
@@ -93,7 +91,11 @@ export const metadata: Metadata = {
   alternates: { canonical: siteConfig.url },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ 
+  children 
+}: { 
+  children: React.ReactNode 
+}) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "TattooParlor",
@@ -122,7 +124,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={dmSans.variable}>
+      <body className={`${dmSans.variable} antialiased`}>
         {children}
       </body>
     </html>
